@@ -18,3 +18,26 @@ export function createNewTask(taskDescription) {
         }
     );
 }
+
+export function getTaskById(id) {
+    const data = read();
+
+    return data.find((row) => row.id === id);
+}
+
+export function updateTaskById(id, taskDescription) {
+    const data = read();
+
+    const selectedTask = getTaskById(id);
+
+    if (!selectedTask) {
+        throw new Error("The selected task does not exist");
+    }
+
+    selectedTask.description = taskDescription;
+    selectedTask.updatedAt = Date.now();
+
+    const tasksExceptSelectedTask = data.filter((row) => row.id !== id);
+
+    write([...tasksExceptSelectedTask, ...[selectedTask]]);
+}
