@@ -1,4 +1,4 @@
-import { createNewTask, deleteTaskById, getAllTasks, updateTaskById } from "./model.js";
+import { createNewTask, deleteTaskById, getAllTasks, updateTaskById, updateTaskStatusById } from "./model.js";
 
 try {
     // 2nd argument is action
@@ -28,6 +28,22 @@ try {
             var status = process.argv[3];
 
             getAllTasks(status);
+            break;
+
+        case "mark-in-progress":
+            // 3rd argument for "mark-in-progress" action is id
+            var status = "in-progress";
+            var id = Number(process.argv[3]);
+
+            updateTaskStatusById(id, status);
+            break;
+
+        case "mark-done":
+            // 3rd argument for  "mark-done" action is id
+            var status = "done";
+            var id = Number(process.argv[3]);
+
+            updateTaskStatusById(id, status);
             break;
 
         default:

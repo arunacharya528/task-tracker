@@ -64,6 +64,23 @@ export function updateTaskById(id, taskDescription) {
     write([...tasksExceptSelectedTask, ...[selectedTask]]);
 }
 
+export function updateTaskStatusById(id, status) {
+    const data = read();
+
+    const selectedTask = getTaskById(id);
+
+    if (!selectedTask) {
+        throw new Error("The selected task does not exist");
+    }
+
+    selectedTask.status = status;
+    selectedTask.updatedAt = Date.now();
+
+    const tasksExceptSelectedTask = data.filter((row) => row.id !== id);
+
+    write([...tasksExceptSelectedTask, ...[selectedTask]]);
+}
+
 export function deleteTaskById(id) {
     const data = read();
 
