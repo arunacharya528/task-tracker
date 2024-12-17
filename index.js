@@ -1,4 +1,4 @@
-import { createNewTask, updateTaskById } from "./model.js";
+import { createNewTask, deleteTaskById, updateTaskById } from "./model.js";
 
 try {
     // 2nd argument is action
@@ -10,11 +10,17 @@ try {
 
         case "update":
             // 3rd argument for 'update' action is id and 4th is new description
-            const id = process.argv[3];
-            const newDescription = process.argv[4];
+            var id = process.argv[3];
+            var newDescription = process.argv[4];
 
 
             updateTaskById(id, newDescription);
+            break;
+        case "delete":
+            // 3rd argument for 'delete' action is id
+            var id = Number(process.argv[3]);
+
+            deleteTaskById(id);
             break;
 
         default:
