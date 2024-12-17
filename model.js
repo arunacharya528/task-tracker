@@ -12,6 +12,24 @@ export function getNewId() {
     return (Math.max(...allIds) ?? 0) + 1;
 }
 
+export function getAllTasks(status) {
+    const data = read();
+
+    data
+        // list by status if status is provided else list all
+        .filter((row) => Boolean(status) ? row.status === status : true)
+        .map((row) => {
+
+            var displayData = `ID:${row.id}`;
+            displayData += ` | Description:${row.description}`
+            displayData += ` | Status:${row.status}`
+            displayData += ` | CreatedAt: ${new Date(row.createdAt).toUTCString()}`
+            displayData += row.updatedAt ? ` | UpdatedAt:${new Date(row.updatedAt).toUTCString()}` : "";
+
+            console.log(displayData);
+        })
+}
+
 export function createNewTask(taskDescription) {
     append(
         {

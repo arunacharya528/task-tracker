@@ -1,4 +1,4 @@
-import { createNewTask, deleteTaskById, updateTaskById } from "./model.js";
+import { createNewTask, deleteTaskById, getAllTasks, updateTaskById } from "./model.js";
 
 try {
     // 2nd argument is action
@@ -21,6 +21,13 @@ try {
             var id = Number(process.argv[3]);
 
             deleteTaskById(id);
+            break;
+
+        case "list":
+            // 3rd argument for 'list' action is status for filtering
+            var status = process.argv[3];
+
+            getAllTasks(status);
             break;
 
         default:
