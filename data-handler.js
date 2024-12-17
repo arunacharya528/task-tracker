@@ -13,3 +13,11 @@ export function read() {
 export function write(data) {
     fs.writeFileSync(filePath, JSON.stringify(data), encoding);
 }
+
+export function append(newData) {
+    const oldData = read();
+
+    const data = [...oldData, ...[newData]];
+
+    write(data);
+}

@@ -1,7 +1,15 @@
-import { read, write } from "./data-handler.js";
+import { createNewTask } from "./model.js";
 
-let data = read();
+// 2nd argument is action
+switch (process.argv[2]) {
+    case "add":
+        // 3rd argument for 'add' action is task description
+        createNewTask(process.argv[3]);
 
-data = [{ "id": "1", "title": "Some name", "in_progress": false, "is_completed": false }];
+        break;
 
-write(data);
+    default:
+        console.log("Command not found")
+
+        break;
+}
