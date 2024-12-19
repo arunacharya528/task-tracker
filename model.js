@@ -15,18 +15,17 @@ export function getNewId() {
 export function getAllTasks(status) {
     const data = read();
 
-    data
+    return data
         // list by status if status is provided else list all
         .filter((row) => Boolean(status) ? row.status === status : true)
+        // formatted time data
         .map((row) => {
-
-            var displayData = `ID:${row.id}`;
-            displayData += ` | Description:${row.description}`
-            displayData += ` | Status:${row.status}`
-            displayData += ` | CreatedAt: ${new Date(row.createdAt).toUTCString()}`
-            displayData += row.updatedAt ? ` | UpdatedAt:${new Date(row.updatedAt).toUTCString()}` : "";
-
-            console.log(displayData);
+            return {
+                ...row, ...{
+                    createdAt: new Date(row.createdAt).toUTCString(),
+                    updatedAt: row.updatedAt ? new Date(row.updatedAt).toUTCString() : null,
+                }
+            }
         })
 }
 

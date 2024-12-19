@@ -1,56 +1,34 @@
-import { createNewTask, deleteTaskById, getAllTasks, updateTaskById, updateTaskStatusById } from "./model.js";
+import { CreateTask } from "./Actions/CreateTask.js";
+import { DeleteTask } from "./Actions/DeleteTask.js";
+import { ListTasks } from "./Actions/ListsTasks.js";
+import { MarkDone } from "./Actions/MarkDone.js";
+import { MarkInProgress } from "./Actions/MarkInProgress.js";
+import { UpdateTask } from "./Actions/UpdateTask.js";
+import { CLIBuilder } from "./Lib/CLIBuilder.js";
 
-try {
-    // 2nd argument is action
-    switch (process.argv[2]) {
-        case "add":
-            // 3rd argument for 'add' action is task description
-            createNewTask(process.argv[3]);
-            break;
+const cliBuilder = CLIBuilder.make()
+    .setHelperText("Welcome to task tracker cli.")
+    .setCommandPattern("npm run task-cli <action> <?params...>")
+    .append("add", new CreateTask(process.argv[3]))
+    .append("list", new ListTasks(process.argv[3]))
+    .append("update", new UpdateTask(process.argv[3], process.argv[4]))
+    .append("delete", new DeleteTask(process.argv[3]))
+    .append("mark-in-progress", new MarkInProgress(process.argv[3]))
+    .append("mark-done", new MarkDone(process.argv[3]))
 
-        case "update":
-            // 3rd argument for 'update' action is id and 4th is new description
-            var id = process.argv[3];
-            var newDescription = process.argv[4];
+function showHelpSummary() {
+    console.log(cliBuilder.helperText, "\n")
+    console.log("Pattern:", cliBuilder.commandPattern, "\n")
+    console.log("Actions:")
+    console.table(cliBuilder.getAvailableActions())
+}
 
+var status = false;
 
-            updateTaskById(id, newDescription);
-            break;
-        case "delete":
-            // 3rd argument for 'delete' action is id
-            var id = Number(process.argv[3]);
+const hasActionArgument = Boolean(process.argv[2]);
 
-            deleteTaskById(id);
-            break;
+status = cliBuilder.executeAction(process.argv[2]);
 
-        case "list":
-            // 3rd argument for 'list' action is status for filtering
-            var status = process.argv[3];
-
-            getAllTasks(status);
-            break;
-
-        case "mark-in-progress":
-            // 3rd argument for "mark-in-progress" action is id
-            var status = "in-progress";
-            var id = Number(process.argv[3]);
-
-            updateTaskStatusById(id, status);
-            break;
-
-        case "mark-done":
-            // 3rd argument for  "mark-done" action is id
-            var status = "done";
-            var id = Number(process.argv[3]);
-
-            updateTaskStatusById(id, status);
-            break;
-
-        default:
-            console.log("Command not found")
-
-            break;
-    }
-} catch (error) {
-    console.log(error)
+if (!hasActionArgument || !status) {
+    showHelpSummary();
 }
