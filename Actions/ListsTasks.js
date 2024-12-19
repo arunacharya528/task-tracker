@@ -1,5 +1,5 @@
 import { CLIAction } from "../Lib/CLIAction.js";
-import { getAllTasks } from "../model.js";
+import Model from "../Model.js";
 
 /**
  * Class related to listing all the tasks with CLI
@@ -22,7 +22,7 @@ export class ListTasks extends CLIAction {
     }
 
     execute() {
-        const tasks = getAllTasks(this.status);
+        const tasks = new Model().getAllTasks(this.status);
 
         console.table(tasks);
 

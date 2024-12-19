@@ -1,5 +1,5 @@
 import { CLIAction } from "../Lib/CLIAction.js";
-import { updateTaskStatusById } from "../model.js";
+import Model from "../Model.js";
 
 /**
  * Class related to marking status of tasks as done
@@ -21,7 +21,7 @@ export class MarkDone extends CLIAction {
     }
 
     execute() {
-        updateTaskStatusById(this.taskId, 'done');
+        new Model().updateTaskById(this.taskId, { status: "done" })
 
         this.setSuccess("Successfully marked a task done")
     }

@@ -1,5 +1,5 @@
 import { CLIAction } from "../Lib/CLIAction.js";
-import { createNewTask, updateTaskById } from "../model.js";
+import Model from "../Model.js";
 
 /**
  * Class related to updating description of task
@@ -22,7 +22,7 @@ export class UpdateTask extends CLIAction {
     }
 
     execute() {
-        updateTaskById(this.taskId, this.taskDescription);
+        new Model().updateTaskById(this.taskId, { description: this.taskDescription })
 
         this.setSuccess("Successfully updated task description")
     }

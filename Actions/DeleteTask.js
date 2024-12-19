@@ -1,5 +1,5 @@
 import { CLIAction } from "../Lib/CLIAction.js";
-import { deleteTaskById } from "../model.js";
+import Model from "../Model.js";
 
 /**
  * Class related to deleting task with CLI
@@ -21,7 +21,7 @@ export class DeleteTask extends CLIAction {
     }
 
     execute() {
-        deleteTaskById(this.taskId);
+        new Model().deleteTaskById(this.taskId)
 
         this.setSuccess("Successfully deleted task")
     }

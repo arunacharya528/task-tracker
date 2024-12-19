@@ -1,5 +1,5 @@
 import { CLIAction } from "../Lib/CLIAction.js";
-import { updateTaskStatusById } from "../model.js";
+import Model from "../Model.js";
 
 /**
  * Class related to marking status of tasks as in-progress
@@ -21,7 +21,7 @@ export class MarkInProgress extends CLIAction {
     }
 
     execute() {
-        updateTaskStatusById(this.taskId, 'in-progress');
+        new Model().updateTaskById(this.taskId, { status: 'in-progress' })
 
         this.setSuccess("Successfully marked a task in-progress")
     }

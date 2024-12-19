@@ -1,5 +1,5 @@
 import { CLIAction } from "../Lib/CLIAction.js";
-import { createNewTask } from "../model.js";
+import Model from "../Model.js";
 
 /**
  * Class related to creating task with CLI
@@ -21,7 +21,7 @@ export class CreateTask extends CLIAction {
     }
 
     execute() {
-        createNewTask(this.taskDescription);
+        new Model().createNewTask(this.taskDescription);
 
         this.setSuccess("Successfully created a task");
     }
