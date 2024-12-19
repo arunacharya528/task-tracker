@@ -2,6 +2,8 @@
 
 This is a simple task tracker application written in nodejs using no any external libraries except for testing.
 
+[Project URL](https://github.com/arunacharya528/task-tracker)
+
 ### Objectives
 ```
 - Learn how to build application with CLI using NodeJS
