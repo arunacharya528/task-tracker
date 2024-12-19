@@ -2,7 +2,7 @@
 
 This is a simple task tracker application written in nodejs using no any external libraries except for testing.
 
-[Project URL](https://github.com/arunacharya528/task-tracker)
+[Project URL](https://roadmap.sh/projects/task-tracker)
 
 ### Objectives
 ```
