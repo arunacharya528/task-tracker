@@ -36,7 +36,7 @@ export default class Model {
 
     /**
      * Get all formatted tasks
-     * @param {string} status 
+     * @param {?string} status 
      * @returns {Array<FormattedTask>}
      */
     getAllTasks(status) {
